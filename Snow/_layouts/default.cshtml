@@ -1,12 +1,14 @@
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Snow.ViewModels.BaseViewModel>
+@using System.Collections.Generic
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="last-modified" content="2014-02-01T17:35:49.8418642+05:30" />
+    <meta http-equiv="last-modified" content="@Model.GeneratedDate" />
     <title></title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
-    <link rel="canonical" href="http://yourwebsite.com/" />
+    @Html.CanonicalUrl()
 </head>
 <body class="home blog">
     <div id="page" class="hfeed site">
@@ -31,35 +33,7 @@
         <div id="main">
             <div id="primary" class="site-content">
                 <div id="content" role="main">
-                  
-
-  <ul class="posts">
-    <li class="fancy-container lightblue">
-      <h1>
-        <a href="/2014/01/test-post-twelve/">Let's just test this...</a> 
-        <span>posted on 02 Jan 2014</span>
-      </h1> 
-      
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ligula tortor, interdum sit amet mattis vel, aliquet vitae sapien. Sed fermentum, massa ac aliquet ornare, arcu sem imperdiet libero, eget mattis urna sem in risus. Phasellus vehicula interdum ornare. Duis pellentesque, ante fringilla mattis fringilla, leo ligula imperdiet nisi, vitae tincidunt nisl urna vitae metus. Fusce quis malesuada urna, vitae ultricies nunc. Nullam lectus elit, sollicitudin ac imperdiet sit amet, dignissim at lorem. Mauris luctus erat dui, non suscipit est convallis quis. Praesent dictum velit sit amet feugiat elementum.</p>
-
-<p>Quisque semper vitae nisl ac viverra. Etiam fermentum turpis sit amet ornare malesuada. Aliquam lectus velit, aliquam quis adipiscing eu, tristique vel dolor. Nam dui lorem, tempor eget nisi ut, rhoncus dignissim felis. Aliquam sodales enim et dictum placerat. Sed nisl nisi, tempus quis erat gravida, euismod scelerisque massa. Ut adipiscing arcu felis, in ornare quam tincidunt vitae. Suspendisse id augue sed purus hendrerit mattis id faucibus felis. Curabitur ornare sem sed nibh varius porta. Etiam imperdiet augue et nulla consectetur, ut placerat sapien mattis. Mauris consectetur, lectus a tempor tincidunt, eros mauris sagittis lorem, at vulputate libero nibh id risus. Cras vitae consequat leo. Cras ut lacus eget dui posuere vestibulum. Vivamus vel cursus ipsum, id accumsan erat. Integer posuere mauris mauris, ut iaculis ante luctus in. Mauris eget leo sit amet metus iaculis elementum ut id tortor.</p>
-
-
-      <p><a href="/2014/01/test-post-twelve/">Read more...</a></p>
-    </li>
-  </ul> 
-
-  <!-- Pagination links -->
-  <div id="post-pagination" class="pagination">
-
-   
-
-      <!--<a href="/">Previous Page</a>-->
-
-
-  </div>
-
-
+                  @RenderBody()
                 </div>
                 <!-- #content -->
             </div>
@@ -112,7 +86,10 @@
                 <aside id="archives-4" class="widget widget_archive">
                     <h1 class="widget-title">Archive</h1>
                     <ul class="posts">
-                          <li><a href="/archive#2014January">January, 2014</a></li>
+                    @foreach(var item in Model.MonthYearList)
+                    {
+                          <li><a href="@item.Url">@item.Title</a></li>
+                    }
                     </ul>
                 </aside>
             </div>
@@ -134,21 +111,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src='/javascripts/prettify.js' type='text/javascript'></script>
     
-    <script type="text/javascript">
-var _gaq = _gaq || [];
-
-_gaq.push(['_setAccount', 'UA-######-##']);
-_gaq.push(['_trackPageview']);
-        
-(function () {
-    var ga = document.createElement('script');
-    ga.type = 'text/javascript';
-    ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(ga, s);
-})();
-</script>
+    @Html.RenderGoogleAnalytics("UA-######-##")
     
     <script type='text/javascript'>
       $(function () {
